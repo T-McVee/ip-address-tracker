@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Outputs } from './Outputs';
 import pattern from '../images/pattern-bg.png';
@@ -73,14 +74,25 @@ const Li = styled.li`
 export const Top = (props) => {
   const { data } = props;
 
+  const [query, setQuery] = useState('');
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    setQuery(e.target.ipInput.value);
+    e.target.ipInput.value = '';
+    console.log(query);
+  };
+
   return (
     <Header>
       <H1>IP Address Tracker</H1>
-      <form action="">
+      <form action="" onSubmit={onSubmit}>
         <div className="form-control">
           <Input
             type="text"
             placeholder="Search for any IP address or domain"
+            id="ipInput"
           />
           <Submit type="submit" value=">" />
         </div>

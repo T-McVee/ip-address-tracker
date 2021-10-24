@@ -36,12 +36,14 @@ export const Outputs = (props) => {
         {data.map((output, index) =>
           index !== 3 ? (
             <Output
+              key={index}
               heading={output.heading}
               body1={output.body1}
               body2={output.body2}
             />
           ) : (
             <Output
+              key={index}
               heading={output.heading}
               body1={output.body1}
               body2={output.body2}
