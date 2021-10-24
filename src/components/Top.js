@@ -1,14 +1,15 @@
 import styled from 'styled-components';
+import { Outputs } from './Outputs';
 import pattern from '../images/pattern-bg.png';
 
 const Header = styled.header`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 200px;
+  height: 215px;
   background-image: url(${pattern});
   margin: 0;
   color: #ffffff;
@@ -21,47 +22,77 @@ const H1 = styled.h1`
 
 const Input = styled.input`
   font-size: 18px;
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   border: none;
-  width: 535px;
+  width: 465px;
   padding: 0.5rem 0.75rem;
+`;
+
+const Submit = styled.input`
+  background-color: hsl(0, 0%, 17%);
+  border: none;
+  font-size: 18px;
+  padding: 0.5rem 0.75rem;
+  color: #ffffff;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 const Aside = styled.aside`
   position: relative;
   top: 35px;
   width: calc(100% - 16rem);
-  height: 260px;
+  height: 160px;
   background-color: #ffffff;
   border-radius: 14px;
   box-shadow: 0px 4px 6px 1px #3f3f3f3d;
+  padding: 1.5rem 0;
 `;
 
 const Ul = styled.ul`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   list-style: none;
+
+  /* border: 1px solid red; */
 `;
 
-export const Top = () => {
+const Li = styled.li`
+  color: hsl(0, 0%, 17%);
+  height: 100%;
+  width: calc(100% / 4);
+  padding-left: 1rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #b6b6b6;
+  border-right: 1px solid #e9e9e9;
+`;
+
+export const Top = (props) => {
+  const { data } = props;
+
   return (
     <Header>
       <H1>IP Address Tracker</H1>
       <form action="">
-        <Input type="text" placeholder="Search for any IP address or domain" />
+        <div className="form-control">
+          <Input
+            type="text"
+            placeholder="Search for any IP address or domain"
+          />
+          <Submit type="submit" value=">" />
+        </div>
       </form>
-      <Aside className="output">
-        <Ul>
-          <li>IP Address</li>
-          <li>Location</li>
-          <li>
-            Timezone UTC {/* add offset value dynamically using the API */}
-          </li>
-          <li>ISP</li>
-        </Ul>
-      </Aside>
+      <Outputs data={data} />
     </Header>
   );
 };
