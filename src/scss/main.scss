@@ -11,5 +11,11 @@ body {
 }
 
 #mapId {
-  height: 180px;
+  height: 100%;
+  width: 100%;
+}
+
+#mapMarkerId {
+  color: hsl(0, 0%, 17%);
+  background-color: hsl(0, 0%, 17%);
 }

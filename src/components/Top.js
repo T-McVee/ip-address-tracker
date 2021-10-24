@@ -37,17 +37,10 @@ const Submit = styled.input`
   color: #ffffff;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-`;
 
-const Aside = styled.aside`
-  position: relative;
-  top: 35px;
-  width: calc(100% - 16rem);
-  height: 160px;
-  background-color: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0px 4px 6px 1px #3f3f3f3d;
-  padding: 1.5rem 0;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Ul = styled.ul`

@@ -1,6 +1,6 @@
 import { Attribution } from './components/Attribution';
 import { Top } from './components/Top';
-import { Map } from './components/Map';
+import { MapView } from './components/MapView';
 
 const data = [
   { heading: 'IP Address', body1: '192.212.174.101' },
@@ -9,11 +9,13 @@ const data = [
   { heading: 'ISP', body1: 'SpaceX', body2: 'Starlink' },
 ];
 
+const position = [-27.445, 152.99];
+
 function App() {
   return (
     <div className="App">
       <Top data={data} />
-      <Map />
+      <MapView position={position} />
       <Attribution />
     </div>
   );

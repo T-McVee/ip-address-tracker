@@ -3,6 +3,7 @@ import { Output } from './Output';
 
 const Aside = styled.aside`
   position: relative;
+  z-index: 1000;
   top: 35px;
   display: flex;
   align-items: center;
