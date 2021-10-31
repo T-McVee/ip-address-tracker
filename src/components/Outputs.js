@@ -34,19 +34,13 @@ export const Outputs = (props) => {
     <Aside className="output">
       <Ul>
         {data.map((output, index) =>
-          index !== 3 ? (
-            <Output
-              key={index}
-              heading={output.heading}
-              body1={output.body1}
-              body2={output.body2}
-            />
+          index !== data.length - 1 ? (
+            <Output key={index} heading={output.heading} body={output.body} />
           ) : (
             <Output
               key={index}
               heading={output.heading}
-              body1={output.body1}
-              body2={output.body2}
+              body={output.body}
               rightMost="true"
             />
           )

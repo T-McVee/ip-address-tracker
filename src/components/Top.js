@@ -21,6 +21,10 @@ const H1 = styled.h1`
   font-weight: 400;
 `;
 
+const Label = styled.label`
+  opacity: 0;
+`;
+
 const Input = styled.input`
   font-size: 18px;
   border-top-left-radius: 8px;
@@ -72,27 +76,21 @@ const Li = styled.li`
 `;
 
 export const Top = (props) => {
-  const { data } = props;
-
-  const [query, setQuery] = useState('');
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-
-    setQuery(e.target.ipInput.value);
-    e.target.ipInput.value = '';
-    console.log(query);
-  };
+  const { inputValue, data, handleChange, handleSubmit } = props;
 
   return (
     <Header>
       <H1>IP Address Tracker</H1>
-      <form action="" onSubmit={onSubmit}>
+      <form action="" onSubmit={handleSubmit} name="ipInput" id="ipInput">
         <div className="form-control">
+          <Label htmlFor="ipInput">IP or domain</Label>
           <Input
             type="text"
             placeholder="Search for any IP address or domain"
             id="ipInput"
+            name="ipInput"
+            onChange={handleChange}
+            value={inputValue}
           />
           <Submit type="submit" value=">" />
         </div>

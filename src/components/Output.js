@@ -4,7 +4,7 @@ const Li = styled.li`
   position: relative;
   color: hsl(0, 0%, 17%);
   height: 100%;
-  width: calc(100% / 4);
+  width: 100%;
   padding-left: 1rem;
   font-weight: 500;
   border-right: ${(props) => (props.rightMost ? 'none' : '1px solid #e9e9e9')};
@@ -29,13 +29,25 @@ const Div = styled.div`
 `;
 
 export const Output = (props) => {
-  const { heading, body1, body2, rightMost } = props;
+  const { heading, body, rightMost } = props;
+
+  const bodyContent = (content) => {
+    if (typeof content === 'string') return <Div>{content}</Div>;
+
+    const body = content
+      .map((el, index) => {
+        if (!el) return '';
+        return !index ? el : `, ${el}`;
+      })
+      .join('');
+
+    return body;
+  };
 
   return (
-    <Li rightMost={rightMost}>
+    <Li rightMost={rightMost} name={heading}>
       <H2>{heading}</H2>
-      <Div>{body1}</Div>
-      {body2 && <Div>{body2}</Div>}
+      {body ? <Div>{bodyContent(body)}</Div> : <Div>Loading...</Div>}
     </Li>
   );
 };
