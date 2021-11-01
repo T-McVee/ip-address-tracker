@@ -41,20 +41,11 @@ export function App() {
               res.data.location.postalCode,
             ],
           },
-          { heading: 'Timezone', body: [res.data.location.timezone] },
+          { heading: 'Timezone', body: [`UTC ${res.data.location.timezone}`] },
           { heading: 'ISP', body: [res.data.isp] },
         ]);
       })
       .catch((error) => {
-        /* setIpData([
-          { heading: 'IP Address', body: [''] },
-          {
-            heading: 'Location',
-            body: [''],
-          },
-          { heading: 'Timezone', body: [''] },
-          { heading: 'ISP', body: [''] },
-        ]); */
         setIpData([{ heading: 'IP Address', body: ['Invalid Domain'] }]);
       });
   }, []);

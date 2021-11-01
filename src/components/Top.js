@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Outputs } from './Outputs';
 import pattern from '../images/pattern-bg.png';

@@ -1,6 +1,12 @@
 import { Top } from '../components/Top';
 import { App } from '../App';
-import { render, fireEvent, cleanup, screen } from '@testing-library/react';
+import {
+  render,
+  fireEvent,
+  cleanup,
+  screen,
+  within,
+} from '@testing-library/react';
 import axios from 'axios';
 import { act } from 'react-dom/test-utils';
 
@@ -42,18 +48,96 @@ const res2 = {
   },
 };
 
-const emptyData = [
-  { heading: 'IP Address', body: '' },
-  {
-    heading: 'Location',
-    body: '',
-  },
-  { heading: 'Timezone', body: '' },
-  { heading: 'ISP', body: '' },
-];
-
 describe('Handles form submitions correctly', () => {
-  // Test all remaining fields
+  it('Updates the ISP after form submit', async () => {
+    axios.get.mockResolvedValue(Promise.resolve(res1));
+
+    await act(async () => {
+      render(
+        <App>
+          <Top />
+        </App>
+      );
+    });
+
+    const form = screen.getByRole('form');
+    const input = within(form).getByRole('textbox');
+
+    const isp = screen.getByText(/Shaw/i);
+    expect(isp).toBeVisible();
+
+    await act(async () => {
+      fireEvent.change(input, { target: { value: 'pinkbike.com' } });
+    });
+
+    axios.get.mockResolvedValue(Promise.resolve(res2));
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button'));
+    });
+
+    expect(isp.textContent).toBe('pinkbike.com');
+  });
+
+  it('Updates the Timezone after form submit', async () => {
+    axios.get.mockResolvedValue(Promise.resolve(res1));
+
+    await act(async () => {
+      render(
+        <App>
+          <Top />
+        </App>
+      );
+    });
+
+    const form = screen.getByRole('form');
+    const input = within(form).getByRole('textbox');
+
+    const timezone = screen.getByText(/UTC/i);
+    expect(timezone).toBeVisible();
+
+    await act(async () => {
+      fireEvent.change(input, { target: { value: 'pinkbike.com' } });
+    });
+
+    axios.get.mockResolvedValue(Promise.resolve(res2));
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button'));
+    });
+
+    expect(timezone.textContent).toBe('-07:00');
+  });
+
+  it('Updates the Location after form submit', async () => {
+    axios.get.mockResolvedValue(Promise.resolve(res1));
+
+    await act(async () => {
+      render(
+        <App>
+          <Top />
+        </App>
+      );
+    });
+
+    const form = screen.getByRole('form');
+    const input = within(form).getByRole('textbox');
+
+    const location = screen.getByText(/Kelowna/i);
+    expect(location).toBeVisible();
+
+    await act(async () => {
+      fireEvent.change(input, { target: { value: 'pinkbike.com' } });
+    });
+
+    axios.get.mockResolvedValue(Promise.resolve(res2));
+
+    await act(async () => {
+      fireEvent.click(screen.getByRole('button'));
+    });
+
+    expect(location.textContent).toBe('Squamish, British Columbia');
+  });
 
   it('Updates the IP address after form submit', async () => {
     axios.get.mockResolvedValue(Promise.resolve(res1));
@@ -66,7 +150,9 @@ describe('Handles form submitions correctly', () => {
       );
     });
 
-    const input = screen.getByPlaceholderText(/Search/i);
+    const form = screen.getByRole('form');
+    const input = within(form).getByRole('textbox');
+
     const ipAddress = screen.getByText(/174.4.76.7/i);
     expect(ipAddress).toBeVisible();
 
@@ -229,3 +315,14 @@ it('Loads with empty input field', async () => {
 
   expect(screen.getByPlaceholderText(/Search/i).value).toBe('');
 });
+
+/* **** State Template */
+const emptyData = [
+  { heading: 'IP Address', body: '' },
+  {
+    heading: 'Location',
+    body: '',
+  },
+  { heading: 'Timezone', body: '' },
+  { heading: 'ISP', body: '' },
+];
