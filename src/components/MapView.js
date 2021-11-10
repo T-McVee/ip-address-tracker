@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
+  useMap,
 } from '@monsonjeremy/react-leaflet';
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -18,11 +20,27 @@ const locationPin = new Icon({
   iconSize: [25, 32],
 });
 
+const MapController = (props) => {
+  const { center } = props;
+
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView([0, 0], 16);
+  }, [center]);
+
+  return null;
+};
+
 export const MapView = (props) => {
   const { position } = props;
 
+  useEffect(() => {
+    console.log('Position:', position);
+  }, []);
+
   return (
-    <Section>
+    <Section data-testid="mapView">
       <MapContainer
         center={position}
         zoom={16}
@@ -31,6 +49,7 @@ export const MapView = (props) => {
         dragging={true}
         id="mapId"
       >
+        <MapController center={position} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
