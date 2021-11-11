@@ -4,6 +4,12 @@ import { Output } from './Output';
 export const Outputs = (props) => {
   const { data } = props;
 
+  if (!data)
+    return (
+      <Aside>
+        <P data-testid="error">Network Error</P>
+      </Aside>
+    );
   return (
     <Aside className="output">
       <Ul>
@@ -48,4 +54,12 @@ const Ul = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+`;
+
+const P = styled.p`
+  width: 100%;
+  color: #000000;
+  text-align: center;
+  padding: 0;
+  font-weight: 400;
 `;

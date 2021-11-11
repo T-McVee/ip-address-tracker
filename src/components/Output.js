@@ -17,7 +17,7 @@ export const Output = (props) => {
   };
 
   return (
-    <Li rightMost={rightMost} name={heading}>
+    <Li rightMost={rightMost}>
       <H2>{heading}</H2>
       <Div data-testid="output-body">
         {body ? bodyContent(body) : 'Loading...'}

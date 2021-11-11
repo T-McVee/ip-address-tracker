@@ -10,6 +10,13 @@ it('<Output>', () => {
   expect(screen.getByTestId('output-body').textContent).toBe('0.0.0.0');
 });
 
+it('<Output> with empty body', () => {
+  render(<Output heading="IP Address" body="" />);
+
+  expect(screen.getByRole('heading').textContent).toBe('IP Address');
+  expect(screen.getByTestId('output-body').textContent).toBe('Loading...');
+});
+
 it('<Output> with no data', () => {
   render(<Output />);
 
