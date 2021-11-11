@@ -20,9 +20,22 @@ const emptyData = [
 ];
 
 export function App() {
+  const handleChange = (e) => {
+    console.log(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('submit');
+  };
+
   return (
     <div className="App">
-      <Top data={emptyData} />
+      <Top
+        data={emptyData}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
       {/* <MapView position={position} /> */}
       <Attribution />
     </div>

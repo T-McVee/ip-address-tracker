@@ -1,25 +1,15 @@
 import styled from 'styled-components';
 import { Outputs } from './Outputs';
+import { SearchBar } from './SearchBar';
 import pattern from '../images/pattern-bg.png';
 
 export const Top = (props) => {
-  const { data } = props;
+  const { data, handleChange, handleSubmit } = props;
 
   return (
     <Header>
       <H1>IP Address Tracker</H1>
-      <form>
-        <div className="form-control">
-          <Label htmlFor="ipInput">IP or domain</Label>
-          <Input
-            type="text"
-            placeholder="Search for any IP address or domain"
-            id="ipInput"
-            name="ipInput"
-          />
-          <Submit type="submit" value=">" />
-        </div>
-      </form>
+      <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />
       <Outputs data={data} />
     </Header>
   );
@@ -41,58 +31,4 @@ const Header = styled.header`
 
 const H1 = styled.h1`
   font-weight: 400;
-`;
-
-const Label = styled.label`
-  opacity: 0;
-`;
-
-const Input = styled.input`
-  font-size: 18px;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  border: none;
-  width: 465px;
-  padding: 0.5rem 0.75rem;
-`;
-
-const Submit = styled.input`
-  background-color: hsl(0, 0%, 17%);
-  border: none;
-  font-size: 18px;
-  padding: 0.5rem 0.75rem;
-  color: #ffffff;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const Ul = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  /* border: 1px solid red; */
-`;
-
-const Li = styled.li`
-  color: hsl(0, 0%, 17%);
-  height: 100%;
-  width: calc(100% / 4);
-  padding-left: 1rem;
-  font-size: 0.6rem;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #b6b6b6;
-  border-right: 1px solid #e9e9e9;
 `;
