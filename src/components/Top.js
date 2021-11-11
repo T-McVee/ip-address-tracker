@@ -3,12 +3,12 @@ import { Outputs } from './Outputs';
 import pattern from '../images/pattern-bg.png';
 
 export const Top = (props) => {
-  const { inputValue, data, handleChange, handleSubmit } = props;
+  const { data } = props;
 
   return (
     <Header>
       <H1>IP Address Tracker</H1>
-      <form action="" onSubmit={handleSubmit} name="ipInput" id="ipInput">
+      <form>
         <div className="form-control">
           <Label htmlFor="ipInput">IP or domain</Label>
           <Input
@@ -16,8 +16,6 @@ export const Top = (props) => {
             placeholder="Search for any IP address or domain"
             id="ipInput"
             name="ipInput"
-            onChange={handleChange}
-            value={inputValue}
           />
           <Submit type="submit" value=">" />
         </div>

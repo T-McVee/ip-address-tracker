@@ -20,87 +20,9 @@ const emptyData = [
 ];
 
 export function App() {
-  const [inputValue, setInputValue] = useState('');
-  const [ipData, setIpData] = useState(emptyData);
-  const [position, setPosition] = useState([0, 0]);
-
-  useEffect(() => {
-    makeRequest(apiRequest);
-  }, []);
-
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  const getData = async (client, query) => {
-    if (!query) return;
-
-    try {
-      const res = await client.get(query);
-      return res;
-    } catch (error) {}
-  };
-
-  const makeRequest = (query) => {
-    getData(axios, query)
-      .then((res) => {
-        console.log(res.data);
-        setIpData([
-          { heading: 'IP Address', body: res.data.ip },
-          {
-            heading: 'Location',
-            body: [
-              res.data.location.city,
-              res.data.location.region,
-              res.data.location.postalCode,
-            ],
-          },
-          { heading: 'Timezone', body: `UTC ${res.data.location.timezone}` },
-          { heading: 'ISP', body: res.data.isp },
-        ]);
-        setPosition([res.data.location.lat, res.data.location.lng]);
-      })
-      .catch((error) => {
-        setIpData([
-          {
-            heading: 'Invalid Query',
-            body: ['Please check the IP address or domain and try again'],
-          },
-        ]);
-      });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // check input format to determine if input is IP or domain
-    let query;
-    if (inputValue === '') {
-      query = apiRequest;
-    } else if (ipRegex.test(inputValue)) {
-      query = `${apiRequest}&ipAddress=${inputValue}`;
-    } else if (urlRegex.test(inputValue)) {
-      query = `${apiRequest}&domain=${inputValue}`;
-    } else {
-      setIpData([{ heading: 'IP Address', body: ['Invalid Domain'] }]);
-    }
-
-    // Reset form and ipData
-    setInputValue('');
-    setIpData(emptyData);
-
-    // send request for data
-    makeRequest(query);
-  };
-
   return (
     <div className="App">
-      <Top
-        data={ipData}
-        inputValue={inputValue}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
+      <Top data={emptyData} />
       {/* <MapView position={position} /> */}
       <Attribution />
     </div>

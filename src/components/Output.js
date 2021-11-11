@@ -1,5 +1,31 @@
 import styled from 'styled-components';
 
+export const Output = (props) => {
+  const { heading, body, rightMost } = props;
+
+  const bodyContent = (content) => {
+    if (typeof content === 'string') return <Div>{content}</Div>;
+
+    const body = content
+      .map((el, index) => {
+        if (!el) return '';
+        return !index ? el : `, ${el}`;
+      })
+      .join('');
+
+    return body;
+  };
+
+  return (
+    <Li rightMost={rightMost} name={heading}>
+      <H2>{heading}</H2>
+      <Div data-testid="output-body">
+        {body ? bodyContent(body) : 'Loading...'}
+      </Div>
+    </Li>
+  );
+};
+
 const Li = styled.li`
   position: relative;
   color: hsl(0, 0%, 17%);
@@ -27,27 +53,3 @@ const Div = styled.div`
   font-size: 1.2rem;
   color: hsl(0, 0%, 17%);
 `;
-
-export const Output = (props) => {
-  const { heading, body, rightMost } = props;
-
-  const bodyContent = (content) => {
-    if (typeof content === 'string') return <Div>{content}</Div>;
-
-    const body = content
-      .map((el, index) => {
-        if (!el) return '';
-        return !index ? el : `, ${el}`;
-      })
-      .join('');
-
-    return body;
-  };
-
-  return (
-    <Li rightMost={rightMost} name={heading}>
-      <H2>{heading}</H2>
-      {body ? <Div>{bodyContent(body)}</Div> : <Div>Loading...</Div>}
-    </Li>
-  );
-};

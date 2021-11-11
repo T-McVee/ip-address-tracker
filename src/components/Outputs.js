@@ -1,6 +1,29 @@
 import styled from 'styled-components';
 import { Output } from './Output';
 
+export const Outputs = (props) => {
+  const { data } = props;
+
+  return (
+    <Aside className="output">
+      <Ul>
+        {data.map((output, index) =>
+          index !== data.length - 1 ? (
+            <Output key={index} heading={output.heading} body={output.body} />
+          ) : (
+            <Output
+              key={index}
+              heading={output.heading}
+              body={output.body}
+              rightMost="true"
+            />
+          )
+        )}
+      </Ul>
+    </Aside>
+  );
+};
+
 const Aside = styled.aside`
   position: relative;
   z-index: 1000;
@@ -26,26 +49,3 @@ const Ul = styled.ul`
   padding: 0;
   list-style: none;
 `;
-
-export const Outputs = (props) => {
-  const { data } = props;
-
-  return (
-    <Aside className="output">
-      <Ul>
-        {data.map((output, index) =>
-          index !== data.length - 1 ? (
-            <Output key={index} heading={output.heading} body={output.body} />
-          ) : (
-            <Output
-              key={index}
-              heading={output.heading}
-              body={output.body}
-              rightMost="true"
-            />
-          )
-        )}
-      </Ul>
-    </Aside>
-  );
-};
