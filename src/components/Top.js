@@ -2,6 +2,31 @@ import styled from 'styled-components';
 import { Outputs } from './Outputs';
 import pattern from '../images/pattern-bg.png';
 
+export const Top = (props) => {
+  const { inputValue, data, handleChange, handleSubmit } = props;
+
+  return (
+    <Header>
+      <H1>IP Address Tracker</H1>
+      <form action="" onSubmit={handleSubmit} name="ipInput" id="ipInput">
+        <div className="form-control">
+          <Label htmlFor="ipInput">IP or domain</Label>
+          <Input
+            type="text"
+            placeholder="Search for any IP address or domain"
+            id="ipInput"
+            name="ipInput"
+            onChange={handleChange}
+            value={inputValue}
+          />
+          <Submit type="submit" value=">" />
+        </div>
+      </form>
+      <Outputs data={data} />
+    </Header>
+  );
+};
+
 const Header = styled.header`
   position: relative;
   display: flex;
@@ -73,28 +98,3 @@ const Li = styled.li`
   color: #b6b6b6;
   border-right: 1px solid #e9e9e9;
 `;
-
-export const Top = (props) => {
-  const { inputValue, data, handleChange, handleSubmit } = props;
-
-  return (
-    <Header>
-      <H1>IP Address Tracker</H1>
-      <form action="" onSubmit={handleSubmit} name="ipInput" id="ipInput">
-        <div className="form-control">
-          <Label htmlFor="ipInput">IP or domain</Label>
-          <Input
-            type="text"
-            placeholder="Search for any IP address or domain"
-            id="ipInput"
-            name="ipInput"
-            onChange={handleChange}
-            value={inputValue}
-          />
-          <Submit type="submit" value=">" />
-        </div>
-      </form>
-      <Outputs data={data} />
-    </Header>
-  );
-};

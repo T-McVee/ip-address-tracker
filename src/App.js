@@ -38,14 +38,13 @@ export function App() {
     try {
       const res = await client.get(query);
       return res;
-    } catch (error) {
-      alert(error);
-    }
+    } catch (error) {}
   };
 
   const makeRequest = (query) => {
     getData(axios, query)
       .then((res) => {
+        console.log(res.data);
         setIpData([
           { heading: 'IP Address', body: res.data.ip },
           {
@@ -102,7 +101,7 @@ export function App() {
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      <MapView position={position} />
+      {/* <MapView position={position} /> */}
       <Attribution />
     </div>
   );

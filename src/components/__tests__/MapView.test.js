@@ -1,5 +1,5 @@
-import { App } from '../App';
-import { MapView } from '../components/MapView';
+import { App } from '../../App';
+import { MapView } from '../MapView';
 import {
   render,
   fireEvent,

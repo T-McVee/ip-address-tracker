@@ -49,7 +49,7 @@ export const MapView = (props) => {
         dragging={true}
         id="mapId"
       >
-        <MapController center={position} />
+        {/* <MapController center={position} /> */}
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

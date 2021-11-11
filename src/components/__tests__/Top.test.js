@@ -1,5 +1,5 @@
-import { Top } from '../components/Top';
-import { App } from '../App';
+import { Top } from '../Top';
+import { App } from '../../App';
 import {
   render,
   fireEvent,
@@ -9,7 +9,7 @@ import {
   act,
 } from '@testing-library/react';
 import axios from 'axios';
-import { MapView } from '../components/MapView';
+import { MapView } from '../MapView';
 
 afterEach(cleanup);
 
