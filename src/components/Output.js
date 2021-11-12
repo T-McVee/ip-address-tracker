@@ -3,25 +3,10 @@ import styled from 'styled-components';
 export const Output = (props) => {
   const { heading, body, rightMost } = props;
 
-  const bodyContent = (content) => {
-    if (typeof content === 'string') return <Div>{content}</Div>;
-
-    const body = content
-      .map((el, index) => {
-        if (!el) return '';
-        return !index ? el : `, ${el}`;
-      })
-      .join('');
-
-    return body;
-  };
-
   return (
     <Li rightMost={rightMost}>
       <H2>{heading}</H2>
-      <Div data-testid="output-body">
-        {body ? bodyContent(body) : 'Loading...'}
-      </Div>
+      <Div data-testid="output-body">{body ? body : 'Loading...'}</Div>
     </Li>
   );
 };

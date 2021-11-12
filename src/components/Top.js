@@ -4,12 +4,16 @@ import { SearchBar } from './SearchBar';
 import pattern from '../images/pattern-bg.png';
 
 export const Top = (props) => {
-  const { data, handleChange, handleSubmit } = props;
+  const { data, inputValue, handleChange, handleSubmit } = props;
 
   return (
     <Header>
       <H1>IP Address Tracker</H1>
-      <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />
+      <SearchBar
+        inputValue={inputValue}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
       <Outputs data={data} />
     </Header>
   );

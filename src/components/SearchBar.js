@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const SearchBar = (props) => {
-  const { handleChange, handleSubmit } = props;
+  const { inputValue, handleChange, handleSubmit } = props;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -12,17 +12,14 @@ export const SearchBar = (props) => {
           placeholder="Search for any IP address or domain"
           id="ipInput"
           name="ipInput"
+          value={inputValue}
           onChange={handleChange}
         />
-        <Submit type="submit" value=">" />
+        <Submit>{`>`}</Submit>
       </div>
     </form>
   );
 };
-
-const Label = styled.label`
-  opacity: 0;
-`;
 
 const Input = styled.input`
   font-size: 18px;
@@ -33,7 +30,7 @@ const Input = styled.input`
   padding: 0.5rem 0.75rem;
 `;
 
-const Submit = styled.input`
+const Submit = styled.button`
   background-color: hsl(0, 0%, 17%);
   border: none;
   font-size: 18px;

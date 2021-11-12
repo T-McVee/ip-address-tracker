@@ -4,7 +4,7 @@ import { Output } from './Output';
 export const Outputs = (props) => {
   const { data } = props;
 
-  if (!data)
+  if (!data || data.status !== 'success')
     return (
       <Aside>
         <P data-testid="error">Network Error</P>
@@ -13,8 +13,8 @@ export const Outputs = (props) => {
   return (
     <Aside className="output">
       <Ul>
-        {data.map((output, index) =>
-          index !== data.length - 1 ? (
+        {data.outputs.map((output, index) =>
+          index !== data.outputs.length - 1 ? (
             <Output key={index} heading={output.heading} body={output.body} />
           ) : (
             <Output
