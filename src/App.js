@@ -12,10 +12,14 @@ const emptyData = {
     { heading: 'Timezone', body: '' },
     { heading: 'ISP', body: '' },
   ],
+  location: {
+    lat: 0,
+    lng: 0,
+  },
 };
 
 const urlRegex =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
 
 const ipRegex =
   /(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/;
@@ -48,13 +52,15 @@ export function App() {
         {
           heading: 'Location',
           body: `${res.data.location.city}, ${res.data.location.region}
-         ${
-           res.data.location.postalCode && `, ${res.data.location.postalCode}`
-         }`,
+         ${res.data.location.postalCode && res.data.location.postalCode}`,
         },
         { heading: 'Timezone', body: `UTC ${res.data.location.timezone}` },
         { heading: 'ISP', body: res.data.isp },
       ],
+      location: {
+        lat: res.data.location.lat,
+        lng: res.data.location.lng,
+      },
     });
   };
 
@@ -76,14 +82,26 @@ export function App() {
     // check for valid domain or IP address
     if (urlRegex.test(inputValue) || ipRegex.test(inputValue)) {
       try {
-        setIpData({ status: 'empty' });
+        setIpData({
+          status: 'empty',
+          location: {
+            lat: ipData.location.lat,
+            lng: ipData.location.lng,
+          },
+        });
         const data = await getData(inputValue);
         updateIpData(data);
       } catch (err) {
         console.log(err);
       }
     } else {
-      setIpData({ status: 'invalid' });
+      setIpData({
+        status: 'invalid',
+        location: {
+          lat: ipData.location.lat,
+          lng: ipData.location.lng,
+        },
+      });
     }
 
     setInputValue('');
@@ -97,7 +115,7 @@ export function App() {
         handleSubmit={handleSubmit}
         inputValue={inputValue}
       />
-      {/* <MapView position={[0, 0]} /> */}
+      <MapView position={[ipData.location.lat, ipData.location.lng]} />
       <Attribution />
     </div>
   );

@@ -26,8 +26,8 @@ const MapController = (props) => {
   const map = useMap();
 
   useEffect(() => {
-    map.setView([0, 0], 16);
-  }, [center]);
+    map.setView(center, 10);
+  }, [center, map]);
 
   return null;
 };
@@ -35,10 +35,7 @@ const MapController = (props) => {
 export const MapView = (props) => {
   const { position } = props;
 
-  useEffect(() => {
-    console.log('Position:', position);
-  }, []);
-
+  if (!position) return null;
   return (
     <Section data-testid="mapView">
       <MapContainer
@@ -49,7 +46,7 @@ export const MapView = (props) => {
         dragging={true}
         id="mapId"
       >
-        {/* <MapController center={position} /> */}
+        <MapController center={position} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
