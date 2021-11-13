@@ -5,7 +5,7 @@ beforeEach(cleanup);
 
 it('<Outputs>', () => {
   const fakeData = {
-    status: 'success',
+    status: 200,
     outputs: [
       {
         heading: 'heading one',
@@ -28,6 +28,42 @@ it('<Outputs>', () => {
   expect(screen.getAllByRole('listitem').length).toBe(fakeData.outputs.length);
   expect(screen.getByText(fakeData.outputs[0].heading).textContent).toBe(
     fakeData.outputs[0].heading
+  );
+});
+
+it('<Outputs> loading state', () => {
+  const fakeData = {
+    status: 'empty',
+    outputs: [
+      {
+        heading: '',
+        body: '',
+      },
+      {
+        heading: '',
+        body: '',
+      },
+      {
+        heading: '',
+        body: '',
+      },
+    ],
+  };
+
+  render(<Outputs data={fakeData} />);
+
+  expect(screen.getByTestId('loading').textContent).toBe('Loading...');
+});
+
+it('<Outputs> invalid state', () => {
+  const fakeData = {
+    status: 'invalid',
+  };
+
+  render(<Outputs data={fakeData} />);
+
+  expect(screen.getByTestId('invalid').textContent).toBe(
+    'Input not a valid IP address or domain'
   );
 });
 

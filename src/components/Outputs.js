@@ -4,12 +4,33 @@ import { Output } from './Output';
 export const Outputs = (props) => {
   const { data } = props;
 
-  if (!data || data.status !== 'success')
+  if (
+    !data ||
+    (data.status !== 200 &&
+      data.status !== 'empty' &&
+      data.status !== 'invalid')
+  ) {
     return (
       <Aside>
         <P data-testid="error">Network Error</P>
       </Aside>
     );
+  } else if (data.status === 'empty') {
+    return (
+      <Aside>
+        <P data-testid="loading">Loading...</P>
+      </Aside>
+    );
+  } else if (data.status === 'invalid') {
+    return (
+      <Aside>
+        <P data-testid="invalid" alert>
+          Input not a valid IP address or domain
+        </P>
+      </Aside>
+    );
+  }
+
   return (
     <Aside className="output">
       <Ul>
@@ -61,5 +82,7 @@ const P = styled.p`
   color: #000000;
   text-align: center;
   padding: 0;
-  font-weight: 400;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: ${(props) => props.alert && '#ad4c4c'};
 `;

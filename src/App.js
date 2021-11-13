@@ -5,7 +5,7 @@ import { Top } from './components/Top';
 import { MapView } from './components/MapView';
 
 const emptyData = {
-  status: '',
+  status: 'empty',
   outputs: [
     { heading: 'IP Address', body: '' },
     { heading: 'Location', body: '' },
@@ -14,50 +14,77 @@ const emptyData = {
   ],
 };
 
+const urlRegex =
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+
+const ipRegex =
+  /(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/;
+
+const apiUrl = 'https://geo.ipify.org/api/v2/country,city?apiKey=';
+const API_KEY = 'at_j7OHAU0gh6B3MWmLWACL5V1GpNN7c';
+
 export function App() {
   const [ipData, setIpData] = useState(emptyData);
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
-    (async () => {
+    async function initialRequest() {
       const data = await getData();
       updateIpData(data);
-    })();
+    }
+
+    initialRequest();
   }, []);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const getData = async (query = '') => {
-    const response = await axios(
-      `http://ip-api.com/json/${query}?fields=status,message,region,city,zip,lat,lon,offset,isp,query`
-    );
-
-    return response.data;
-  };
-
-  const updateIpData = (data) => {
-    console.log(data);
+  const updateIpData = (res) => {
     setIpData({
-      status: data.status,
+      status: res.status,
       outputs: [
-        { heading: 'IP Address', body: data.query },
+        { heading: 'IP Address', body: res.data.ip },
         {
           heading: 'Location',
-          body: `${data.city}, ${data.region}, ${data.zip}`,
+          body: `${res.data.location.city}, ${res.data.location.region}
+         ${
+           res.data.location.postalCode && `, ${res.data.location.postalCode}`
+         }`,
         },
-        { heading: 'Timezone', body: `UTC ${data.offset / 3600}:00` },
-        { heading: 'ISP', body: data.isp },
+        { heading: 'Timezone', body: `UTC ${res.data.location.timezone}` },
+        { heading: 'ISP', body: res.data.isp },
       ],
     });
+  };
+
+  const getData = async (input) => {
+    let query = `${apiUrl}${API_KEY}`;
+
+    if (urlRegex.test(input)) query += `&domain=${input}`;
+
+    if (ipRegex.test(input)) query += `&ipAddress=${input}`;
+
+    const response = await axios(query);
+
+    return response;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = await getData(e.target.ipInput.value);
-    updateIpData(data);
+    // check for valid domain or IP address
+    if (urlRegex.test(inputValue) || ipRegex.test(inputValue)) {
+      try {
+        setIpData({ status: 'empty' });
+        const data = await getData(inputValue);
+        updateIpData(data);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      setIpData({ status: 'invalid' });
+    }
 
     setInputValue('');
   };
@@ -79,9 +106,6 @@ export function App() {
 export default App;
 
 /* 
-const ipRegex =
-  /(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/;
 
-const urlRegex =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+
  */
