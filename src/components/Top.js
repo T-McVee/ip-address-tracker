@@ -31,6 +31,15 @@ const Header = styled.header`
   margin: 0;
   color: #ffffff;
   box-shadow: 0px 4px 6px 1px #3f3f3f3d;
+
+  @media screen and (min-width: 1441px) {
+    background-size: cover;
+  }
+
+  @media screen and (max-width: 820px) {
+    padding: 0 2rem;
+    background-position: 60%;
+  }
 `;
 
 const H1 = styled.h1`

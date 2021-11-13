@@ -11,15 +11,12 @@ import 'leaflet/dist/leaflet.css';
 import styled from 'styled-components';
 import locationArrow from '../images/icon-location.svg';
 
-const Section = styled.section`
-  height: calc(100vh - 215px);
-`;
-
 const locationPin = new Icon({
   iconUrl: locationArrow,
   iconSize: [25, 32],
 });
 
+// Allows the center of the map to be set
 const MapController = (props) => {
   const { center } = props;
 
@@ -60,3 +57,7 @@ export const MapView = (props) => {
     </Section>
   );
 };
+
+const Section = styled.section`
+  height: calc(100vh - 215px);
+`;

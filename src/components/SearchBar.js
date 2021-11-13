@@ -5,7 +5,7 @@ export const SearchBar = (props) => {
   const { inputValue, handleChange, handleSubmit } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       <Input
         type="text"
         placeholder="Search for any IP address or domain"
@@ -16,9 +16,16 @@ export const SearchBar = (props) => {
         required
       />
       <Submit>{`>`}</Submit>
-    </form>
+    </Form>
   );
 };
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+`;
 
 const Input = styled.input`
   font-size: 18px;
@@ -30,6 +37,13 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
   }
 `;
 
@@ -48,5 +62,11 @@ const Submit = styled.button`
 
   &:focus {
     outline: none;
+  }
+
+  @media screen and (max-width: 375px) {
+    padding: 1.1rem;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
   }
 `;

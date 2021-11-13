@@ -6,7 +6,7 @@ export const Output = (props) => {
   return (
     <Li rightMost={rightMost}>
       <H2>{heading}</H2>
-      <Div data-testid="output-body">{body ? body : 'Loading...'}</Div>
+      <P data-testid="output-body">{body ? body : 'Loading...'}</P>
     </Li>
   );
 };
@@ -19,6 +19,11 @@ const Li = styled.li`
   padding-left: 1rem;
   font-weight: 500;
   border-right: ${(props) => (props.rightMost ? 'none' : '1px solid #e9e9e9')};
+
+  @media screen and (max-width: 820px) {
+    text-align: center;
+    padding: 1rem 0 1.2rem;
+  }
 `;
 
 const H2 = styled.h2`
@@ -32,9 +37,15 @@ const H2 = styled.h2`
   margin: 0 0 0rem;
 `;
 
-const Div = styled.div`
+const P = styled.p`
   position: relative;
   top: 6px;
+  margin: 0;
+  padding: 0;
   font-size: 1.2rem;
   color: hsl(0, 0%, 17%);
+
+  @media screen and (max-width: 820px) {
+    font-size: 1.2rem;
+  }
 `;

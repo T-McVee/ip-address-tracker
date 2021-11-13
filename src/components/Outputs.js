@@ -63,6 +63,11 @@ const Aside = styled.aside`
   border-radius: 14px;
   box-shadow: 0px 4px 6px 1px #3f3f3f3d;
   padding: 1.5rem 0;
+
+  @media screen and (max-width: 820px) {
+    width: 100%;
+    min-height: fit-content;
+  }
 `;
 
 const Ul = styled.ul`
@@ -75,6 +80,12 @@ const Ul = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+
+  @media screen and (max-width: 820px) {
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+  }
 `;
 
 const P = styled.p`
