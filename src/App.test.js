@@ -16,6 +16,8 @@ const server = setupServer(
           region: 'British Columbia',
           postalCode: '',
           timezone: '-8:00',
+          lat: 0,
+          lng: 0,
         },
       })
     );
@@ -26,7 +28,7 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-it.skip('<App>', async () => {
+it('<App>', async () => {
   render(<App />);
 
   await waitFor(() => {
@@ -53,9 +55,11 @@ it.skip('<App>', async () => {
           isp: 'pinkbike.com',
           location: {
             city: 'San Jose',
-            region: 'CA',
+            region: 'California',
             postalCode: '95119',
             timezone: '-8:00',
+            lat: 0,
+            lng: 0,
           },
         })
       );
@@ -66,9 +70,7 @@ it.skip('<App>', async () => {
 
   await waitFor(() => {
     expect(screen.getByText('198.90.5.100')).toBeVisible();
-
-    // Fix this
-    expect(screen.getByText('San Jose, CA , 95119')).toBeVisible();
+    expect(screen.getByText('San Jose, California, 95119')).toBeVisible();
     expect(screen.getByText('UTC -8:00')).toBeVisible();
     expect(screen.getByText('pinkbike.com')).toBeVisible();
   });
@@ -89,6 +91,8 @@ it.skip('<App>', async () => {
             region: 'California',
             postalCode: '94035',
             timezone: '-8:00',
+            lat: 0,
+            lng: 0,
           },
         })
       );
@@ -99,12 +103,8 @@ it.skip('<App>', async () => {
 
   await waitFor(() => {
     expect(screen.getByText('8.8.8.8')).toBeVisible();
-
-    // Fix this
-    expect(screen.getByText('Mountain View, California , 94035')).toBeVisible();
+    expect(screen.getByText('Mountain View, California, 94035')).toBeVisible();
     expect(screen.getByText('UTC -8:00')).toBeVisible();
     expect(screen.getByText('Google LLC')).toBeVisible();
   });
-
-  // screen.debug();
 });

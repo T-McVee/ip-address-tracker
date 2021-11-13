@@ -45,14 +45,20 @@ export function App() {
   };
 
   const updateIpData = (res) => {
+    const formatLocationBody = (body) => {
+      const { city, region, postalCode } = body;
+
+      if (postalCode) return [city, region, postalCode].join(', ');
+      return [city, region].join(', ');
+    };
+
     setIpData({
       status: res.status,
       outputs: [
         { heading: 'IP Address', body: res.data.ip },
         {
           heading: 'Location',
-          body: `${res.data.location.city}, ${res.data.location.region}
-         ${res.data.location.postalCode && res.data.location.postalCode}`,
+          body: formatLocationBody(res.data.location),
         },
         { heading: 'Timezone', body: `UTC ${res.data.location.timezone}` },
         { heading: 'ISP', body: res.data.isp },
@@ -89,6 +95,7 @@ export function App() {
             lng: ipData.location.lng,
           },
         });
+
         const data = await getData(inputValue);
         updateIpData(data);
       } catch (err) {
@@ -122,8 +129,3 @@ export function App() {
 }
 
 export default App;
-
-/* 
-
-
- */
