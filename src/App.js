@@ -4,28 +4,8 @@ import { Attribution } from './components/Attribution';
 import { Top } from './components/Top';
 import { MapView } from './components/MapView';
 
-const emptyData = {
-  status: 'empty',
-  outputs: [
-    { heading: 'IP Address', body: '' },
-    { heading: 'Location', body: '' },
-    { heading: 'Timezone', body: '' },
-    { heading: 'ISP', body: '' },
-  ],
-  location: {
-    lat: 0,
-    lng: 0,
-  },
-};
-
-const urlRegex =
-  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
-
-const ipRegex =
-  /(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/;
-
 const apiUrl = 'https://geo.ipify.org/api/v2/country,city?apiKey=';
-const API_KEY = 'at_j7OHAU0gh6B3MWmLWACL5V1GpNN7c';
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 export function App() {
   const [ipData, setIpData] = useState(emptyData);
@@ -129,3 +109,23 @@ export function App() {
 }
 
 export default App;
+
+const emptyData = {
+  status: 'empty',
+  outputs: [
+    { heading: 'IP Address', body: '' },
+    { heading: 'Location', body: '' },
+    { heading: 'Timezone', body: '' },
+    { heading: 'ISP', body: '' },
+  ],
+  location: {
+    lat: 0,
+    lng: 0,
+  },
+};
+
+const urlRegex =
+  /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+
+const ipRegex =
+  /(\b25[0-5]|\b2[0-4][0-9]|\b[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}/;
