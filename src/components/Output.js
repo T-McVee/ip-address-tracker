@@ -19,7 +19,7 @@ export const Output = (props) => {
 // Fade in
 const fadeIn = keyframes`
 from {
-  transform: scale(0.95);
+  transform: scale(0.98);
   opacity: 0;
 }
 
