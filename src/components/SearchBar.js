@@ -58,6 +58,7 @@ const Submit = styled.button`
 
   &:hover {
     cursor: pointer;
+    outline: 1px solid red;
   }
 
   &:focus {
