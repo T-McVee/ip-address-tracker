@@ -1,7 +1,12 @@
-import styled from 'styled-components';
+import { useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 
 export const Output = (props) => {
   const { heading, body, rightMost } = props;
+
+  useEffect(() => {
+    console.log(P);
+  }, [body]);
 
   return (
     <Li rightMost={rightMost}>
@@ -10,6 +15,19 @@ export const Output = (props) => {
     </Li>
   );
 };
+
+// Fade in
+const fadeIn = keyframes`
+from {
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+to {
+  transform: scale(1);
+  opacity: 1;
+}
+`;
 
 const Li = styled.li`
   position: relative;
@@ -44,6 +62,7 @@ const P = styled.p`
   padding: 0;
   font-size: 1.2rem;
   color: hsl(0, 0%, 17%);
+  animation: ${fadeIn} 0.3s linear;
 
   @media screen and (max-width: 820px) {
     font-size: 1.2rem;
